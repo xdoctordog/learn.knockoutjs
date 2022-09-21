@@ -1,0 +1,33 @@
+<html>
+<head>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript"
+            src="../ext-js/knockout-3.5.1.js"></script>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript" src="js/main.js"></script>
+    <title>Lesson 2: collections</title>
+</head>
+<body>
+<h2>Your seat reservations (<span data-bind="text: seats().length"></span>)</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Passenger name</th>
+        <th>Meal</th>
+        <th>Surcharge</th>
+        <th></th>
+    </tr>
+    </thead>
+    <!-- Todo: Generate table body -->
+    <tbody data-bind="foreach: seats">
+    <td><input data-bind="value: name"/></td>
+    <td><select data-bind="options: $root.availableMeals, value: mealObject, optionsText: 'mealName'"></select></td>
+    <td data-bind="text: formattedPrice"></td>
+    <td><a href="#" data-bind="click: $root.removeSeat">Remove</a></td>
+    </tbody>
+</table>
+<br><br>
+<h3 data-bind="visible: totalSurcharge() > 0">
+    Total surcharge: $<span data-bind="text: totalSurcharge().toFixed(2)"></span>
+</h3>
+<button data-bind="click: addSeat">Reserve another seat</button>
+</body>
+</html>

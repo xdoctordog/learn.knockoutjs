@@ -1,0 +1,55 @@
+<html>
+<head>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript" src="../ext-js/jquery-1.8.3.js"></script>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript" src="../ext-js/jquery-ui.js"></script>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript" src="../ext-js/knockout-3.5.1.js"></script>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript" src="js/main.js"></script>
+    <title>Lesson 4: custom bindings</title>
+</head>
+<body>
+<style>
+.starRating span {
+    width: 24px;
+    height: 24px;
+    background-image: url(stars.png);
+    display: inline-block;
+    cursor: pointer;
+    background-position: -24px 0;
+}
+
+.starRating span.chosen {
+    background-position: 0 0;
+}
+
+.starRating:hover span {
+    background-position: -24px 0;
+}
+
+.starRating:hover span.hoverChosen {
+    background-position: 0 0;
+}
+</style>
+<h3 data-bind="text: question"></h3>
+<p>Please distribute <b data-bind="text: pointsBudget"></b> points between the following options.</p>
+
+<table>
+    <thead>
+    <tr>
+        <th>Option</th>
+        <th>Importance</th>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: answers">
+    <tr>
+        <td data-bind="text: answerText"></td>
+        <!--<td><select data-bind="options: [1,2,3,4,5], value: points"></select></td>-->
+        <td data-bind="starRating: points"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h3 data-bind="fadeVisible: pointsUsed() > pointsBudget">You've used too many points! Please remove some.</h3>
+<p>You've got <b data-bind="text: pointsBudget - pointsUsed()"></b> points left to use.</p>
+<button data-bind="jqButton: { enable: pointsUsed() <= pointsBudget }, click: save">Finished</button>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+<head>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript"
+            src="../ext-js/jquery-1.8.3.js"></script>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript"
+            src="../ext-js/knockout-3.5.1.js"></script>
+    <script crossorigin="anonymous" defer="defer" type="application/javascript" src="js/main.js"></script>
+    <title>Lesson 4: custom bindings</title>
+</head>
+<body>
+<form data-bind="submit: addTask">
+    Add task: <input data-bind="value: newTaskText" placeholder="What needs to be done?"/>
+    <button type="submit">Add</button>
+</form>
+
+<ul data-bind="foreach: tasks, visible: tasks().length > 0">
+    <li>
+        <input type="checkbox" data-bind="checked: isDone"/>
+        <input data-bind="value: title, disable: isDone"/>
+        <a href="#" data-bind="click: $parent.removeTask">Delete</a>
+    </li>
+</ul>
+
+You have <b data-bind="text: incompleteTasks().length">&nbsp;</b> incomplete task(s)
+<span data-bind="visible: incompleteTasks().length == 0"> - it's beer time!</span>
+
+<form action='http://learn.knockoutjs.com/tasks/saveform' method='post'>
+    <input type='hidden' name='tasks' data-bind='value: ko.toJSON(tasks)'/>
+    <button type='submit'>Save</button>
+</form>
+
+<button data-bind='click: save'>Ajax Save</button>
+</body>
+</html>
